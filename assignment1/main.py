@@ -4,10 +4,12 @@ class Complex:
     self.b = b
  # Constructor to initialize real (a) and imaginary (b) parts
  def __str__(self):
-    if self.b < 0:
-        return f'{self.a}{self.b}i'
+    if self.b == 0:
+        return f'{self.a}'
+    elif self.b < 0:
+        return f'{self.a if self.a != 0 else ""}{"-" if self.b == -1 else ""}{self.b if (self.b != 0 and self.b != -1) else ""}i'
     else:
-        return f'{self.a}+{self.b}i'
+        return f'{self.a if self.a != 0 else ""}{"+" if (self.b != 1 or self.a != 0) else ""}{self.b if (self.b != 0 and self.b != 1) else ""}i'
  # Method to return a string representation of the complex number
  def __add__(self, rhs):
     self.a += rhs.a

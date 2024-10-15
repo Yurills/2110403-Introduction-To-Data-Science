@@ -3,7 +3,7 @@ class Card:
         self.value = value
         self.suit = suit
     def __str__(self):
-        return f'{self.value} {self.suit}'
+        return f'({self.value} {self.suit})'
     def getScore(self):
         if not self.value.isnumeric():
             if self.value == 'A':
@@ -15,20 +15,31 @@ class Card:
     def sum(self, other):
         return (self.getScore()+other.getScore())%10
     def __lt__(self, rhs):
+       
         lvalue = self.getScore()
         rvalue = rhs.getScore()
+
         if (lvalue<3):
-            lvalue += 10
+            lvalue += 14
         if (rvalue<3):
-            rvalue += 10
-        
+            rvalue += 14
+        fValue = {
+            'J': 11,
+            'Q': 12,
+            'K': 13,
+        }
+        if (lvalue == 10):
+            lvalue = fValue[self.value]
+        if (rvalue == 10):
+            rvalue = fValue[rhs.value]
+
         if (lvalue == rvalue):
             sValue = {
-                "club": 1,
-                "diamond": 2,
-                "heart": 3,
-                "spade": 4
-            }
+            "club": 1,
+            "diamond": 2,
+            "heart": 3,
+            "spade": 4
+        }
             return sValue[self.suit] < sValue[rhs.suit]
         else:
             return lvalue < rvalue
@@ -41,10 +52,10 @@ for i in range(n):
     cards.append(Card(value, suit))
 for i in range(n):
     print(cards[i].getScore())
-    print("----------")
+print("----------")
 for i in range(n-1):
     print(Card.sum(cards[i], cards[i+1]))
-    print("----------")
+print("----------")
 cards.sort()
 for i in range(n):
     print(cards[i])
